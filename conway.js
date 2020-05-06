@@ -149,7 +149,7 @@ class Game {
 				for (let n in neighbors)
 					life += neighbors[n];
 
-				if (life > 2 && this.cells[row][col] < 1)
+				if (life == 3 && this.cells[row][col] < 1)
 					newState[row][col] = 1;
 
 				if (life > 3 && this.cells[row][col] > 0)
@@ -222,18 +222,18 @@ const ctx = canvas.getContext('2d');
 const game = new Game(ctx, width, height);
 
 // initialize the new game with a random state:
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 10; i++) {
 	const row = floor(Math.random() * game.nRows);
 	const col = floor(Math.random() * game.nColumns);
-	game.setCell(row - 1, col - 1, floor(Math.random() > 0.5));
-	game.setCell(row - 1, col,     floor(Math.random() > 0.5));
-	game.setCell(row - 1, col + 1, floor(Math.random() > 0.5));
-	game.setCell(row,     col - 1, floor(Math.random() > 0.5));
-	game.setCell(row,     col,     floor(Math.random() > 0.5));
-	game.setCell(row,     col + 1, floor(Math.random() > 0.5));
-	game.setCell(row + 1, col - 1, floor(Math.random() > 0.5));
-	game.setCell(row + 1, col,     floor(Math.random() > 0.5));
-	game.setCell(row + 1, col + 1, floor(Math.random() > 0.5));
+	game.setCell(row - 1, col - 1, floor(Math.random() >= 0.5));
+	game.setCell(row - 1, col,     floor(Math.random() >= 0.5));
+	game.setCell(row - 1, col + 1, floor(Math.random() >= 0.5));
+	game.setCell(row,     col - 1, floor(Math.random() >= 0.5));
+	game.setCell(row,     col,     floor(Math.random() >= 0.5));
+	game.setCell(row,     col + 1, floor(Math.random() >= 0.5));
+	game.setCell(row + 1, col - 1, floor(Math.random() >= 0.5));
+	game.setCell(row + 1, col,     floor(Math.random() >= 0.5));
+	game.setCell(row + 1, col + 1, floor(Math.random() >= 0.5));
 }
 
 // draw the game:
