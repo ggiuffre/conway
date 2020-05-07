@@ -92,6 +92,27 @@ class Game {
 	}
 
 	/**
+	 * Returns the theoretical neighbors of a cell at position (row, col),
+	 * regardless of whether the cell is at the border or not.
+	 *
+	 * @param      {number}  row     The cell's row
+	 * @param      {number}  col     The cell's column
+	 * @return     {Array}   Theoretical neighbors of the cell.
+	 */
+	potentialNeihgbors(row, col) {
+		return [
+			[row - 1, col - 1],
+			[row - 1, col],
+			[row - 1, col + 1],
+			[row, col - 1],
+			[row, col + 1],
+			[row + 1, col - 1],
+			[row + 1, col],
+			[row + 1, col + 1]
+		];
+	}
+
+	/**
 	 * Returns all the neighbors of a specified cell.
 	 *
 	 * @param      {number}  row     The cell's row
@@ -105,16 +126,7 @@ class Game {
 		col = Number(col);
 
 		// calculate the cell's neighbors, disregarding the borders:
-		const candidates = [
-			[row - 1, col - 1],
-			[row - 1, col],
-			[row - 1, col + 1],
-			[row, col - 1],
-			[row, col + 1],
-			[row + 1, col - 1],
-			[row + 1, col],
-			[row + 1, col + 1]
-		];
+		const candidates = this.potentialNeihgbors(row, col);
 
 		// only consider the neighbors that are inside the borders:
 		let neighbors = [];
@@ -225,15 +237,11 @@ const game = new Game(ctx, width, height);
 for (let i = 0; i < 10; i++) {
 	const row = floor(Math.random() * game.nRows);
 	const col = floor(Math.random() * game.nColumns);
-	game.setCell(row - 1, col - 1, floor(Math.random() >= 0.5));
-	game.setCell(row - 1, col,     floor(Math.random() >= 0.5));
-	game.setCell(row - 1, col + 1, floor(Math.random() >= 0.5));
-	game.setCell(row,     col - 1, floor(Math.random() >= 0.5));
-	game.setCell(row,     col,     floor(Math.random() >= 0.5));
-	game.setCell(row,     col + 1, floor(Math.random() >= 0.5));
-	game.setCell(row + 1, col - 1, floor(Math.random() >= 0.5));
-	game.setCell(row + 1, col,     floor(Math.random() >= 0.5));
-	game.setCell(row + 1, col + 1, floor(Math.random() >= 0.5));
+	const neighbors = game.potentialNeihgbors(row, col);
+	for (let n in neighbors) {
+		const randomState = floor(Math.random() >= 0.5);
+		game.setCell(neighbors[n][0], neighbors[n][1], randomState);
+	}
 }
 
 // draw the game:
