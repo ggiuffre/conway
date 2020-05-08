@@ -47,8 +47,8 @@ class Game {
 		this.ctx.fillRect(0, 0, this.width, this.height);
 
 		// draw each cell:
-		for (let row = 0; row < this.nRows; row++)
-			for (let col = 0; col < this.nColumns; col++)
+		for (const row in this.cells)
+			for (const col in this.cells[row])
 				this.drawCell(row, col);
 	}
 
@@ -101,14 +101,14 @@ class Game {
 	 */
 	potentialNeihgbors(row, col) {
 		return [
-			[row - 1, col - 1],
-			[row - 1, col],
-			[row - 1, col + 1],
-			[row, col - 1],
-			[row, col + 1],
-			[row + 1, col - 1],
-			[row + 1, col],
-			[row + 1, col + 1]
+			{x: row - 1, y: col - 1},
+			{x: row - 1, y: col    },
+			{x: row - 1, y: col + 1},
+			{x: row,     y: col - 1},
+			{x: row,     y: col + 1},
+			{x: row + 1, y: col - 1},
+			{x: row + 1, y: col    },
+			{x: row + 1, y: col + 1}
 		];
 	}
 
@@ -130,9 +130,9 @@ class Game {
 
 		// only consider the neighbors that are inside the borders:
 		let neighbors = [];
-		for (let c in candidates) {
-			const x = Number(candidates[c][0]);
-			const y = Number(candidates[c][1]);
+		for (const cell of candidates) {
+			const x = cell.x;
+			const y = cell.y;
 			if (x >= 0 && x < this.nRows && y >= 0 && y < this.nColumns)
 				neighbors.push(this.cells[x][y]);
 		}
@@ -149,17 +149,17 @@ class Game {
 
 		// create a deep copy of the game's current state:
 		const newState = new Array(this.nRows);
-		for (let row = 0; row < newState.length; row++)
+		for (const row in this.cells)
 			newState[row] = this.cells[row].slice();
 
 		// calculate the next state of each cell:
-		for (let row in newState) {
-			for (let col in newState[row]) {
+		for (const row in newState) {
+			for (const col in newState[row]) {
 				const neighbors = this.getCellNeighbors(row, col);
 
 				let life = 0;
-				for (let n in neighbors)
-					life += neighbors[n];
+				for (const cell of neighbors)
+					life += cell;
 
 				if (life == 3 && this.cells[row][col] < 1)
 					newState[row][col] = 1;
@@ -237,10 +237,11 @@ const game = new Game(ctx, width, height);
 for (let i = 0; i < 10; i++) {
 	const row = floor(Math.random() * game.nRows);
 	const col = floor(Math.random() * game.nColumns);
-	const neighbors = game.potentialNeihgbors(row, col);
-	for (let n in neighbors) {
+	const neighbors_1 = game.potentialNeihgbors(row + 1, col);
+	const neighbors_2 = game.potentialNeihgbors(row, col + 1);
+	for (const cell of [...neighbors_1, ...neighbors_2]) {
 		const randomState = floor(Math.random() >= 0.5);
-		game.setCell(neighbors[n][0], neighbors[n][1], randomState);
+		game.setCell(cell.x, cell.y, randomState);
 	}
 }
 
