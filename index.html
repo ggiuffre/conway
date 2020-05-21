@@ -16,5 +16,14 @@
 		<p>Try using a different browser.</p>
 	</canvas>
 	<script type="text/javascript" src="conway.js"></script>
+	<script type="text/javascript">
+		// start a new game:
+		const canvas = document.querySelector('#conway');
+		const width = canvas.width = window.innerWidth;
+		const height = canvas.height = window.innerHeight;
+		const ctx = canvas.getContext('2d');
+		const game = new Game(ctx, width, height);
+		game.start(true);
+	</script>
 </body>
 </html>

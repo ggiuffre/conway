@@ -176,6 +176,44 @@ class Game {
 		this.cells = newState;
 		this.draw();
 	}
+
+
+	/**
+	 * Starts to animate the game, optionally resetting its state to a random
+	 * value.
+	 *
+	 * @param      {boolean}  [setState=false]  Whether to reset the state
+	 */
+	start(setState = false) {
+		// if specified, initialize the new game with a random state:
+		if (setState) this.setRandomState();
+
+		// draw the game:
+		this.draw();
+
+		// set the game's state to be updated every second:
+		window.setInterval(this.tick.bind(this), 1000);
+	}
+
+
+	/**
+	 * Reset the state of the game to a random state where `nClusters` number
+	 * of clusters (neighboring cells) will be randomly set to 1 or 0.
+	 *
+	 * @param      {number}  [nClusters=15]  The number of clusters
+	 */
+	setRandomState(nClusters = 15) {
+		for (let i = 0; i < nClusters; i++) {
+			const row = floor(Math.random() * this.nRows);
+			const col = floor(Math.random() * this.nColumns);
+			const neighbors_1 = this.potentialNeihgbors(row + 1, col);
+			const neighbors_2 = this.potentialNeihgbors(row, col + 1);
+			for (const cell of [...neighbors_1, ...neighbors_2]) {
+				const randomState = floor(Math.random() >= 0.5);
+				this.setCell(cell.x, cell.y, randomState);
+			}
+		}
+	}
 }
 
 /**
@@ -223,32 +261,3 @@ function smoothRectangle(ctx, x, y, w, h, radius = 3) {
 	ctx.lineTo(x, y + radius);
 	ctx.quadraticCurveTo(x, y, x + radius, y);
 }
-
-
-
-// create a new game:
-const canvas = document.querySelector('#conway');
-const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight;
-const ctx = canvas.getContext('2d');
-const game = new Game(ctx, width, height);
-
-// initialize the new game with a random state:
-for (let i = 0; i < 10; i++) {
-	const row = floor(Math.random() * game.nRows);
-	const col = floor(Math.random() * game.nColumns);
-	const neighbors_1 = game.potentialNeihgbors(row + 1, col);
-	const neighbors_2 = game.potentialNeihgbors(row, col + 1);
-	for (const cell of [...neighbors_1, ...neighbors_2]) {
-		const randomState = floor(Math.random() >= 0.5);
-		game.setCell(cell.x, cell.y, randomState);
-	}
-}
-
-// draw the game:
-game.draw();
-
-// set the game's state to be updated every second:
-window.setInterval(function() {
-	game.tick();
-}, 1000);
