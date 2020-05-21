@@ -8,7 +8,8 @@ with a simple HTML canvas.
 
 ## Usage
 
-Download `conway.js` from this repository.
+Download <a href="https://raw.githubusercontent.com/ggiuffre/conway/master/conway.js" download>`conway.js`</a>
+from this repository.
 
 Add an HTML `canvas` element and a `script` element pointing to `conway.js`:
 
