@@ -26,8 +26,16 @@ class Game {
 		this.xCenteringOffset = (width - this.nColumns * this.cellSize) / 2;
 		this.yCenteringOffset = (height - this.nRows * this.cellSize) / 2;
 		this.cellPadding = 0.01 * this.cellSize;
+		this.animation = null;
 
-		// reset the game state:
+		this.reset();
+	}
+
+
+	/**
+	 * Resets the state of the game to all dead cells.
+	 */
+	reset() {
 		this.cells = new Array(this.nRows);
 		for (let row = 0; row < this.cells.length; row++) {
 			this.cells[row] = new Array(this.nColumns);
@@ -177,7 +185,6 @@ class Game {
 		this.draw();
 	}
 
-
 	/**
 	 * Starts to animate the game, optionally resetting its state to a random
 	 * value.
@@ -192,9 +199,28 @@ class Game {
 		this.draw();
 
 		// set the game's state to be updated every second:
-		window.setInterval(this.tick.bind(this), 1000);
+		this.resume();
 	}
 
+	/**
+	 * Pauses the game if it is not paused.
+	 */
+	pause() {
+		if (this.animation !== null) {
+			window.clearInterval(this.animation);
+			this.animation = null;
+		}
+	}
+
+	/**
+	 * Resumes the game if it was paused.
+	 */
+	resume() {
+		if (this.animation === null) {
+			this.tick();
+			this.animation = window.setInterval(this.tick.bind(this), 1000);
+		}
+	}
 
 	/**
 	 * Reset the state of the game to a random state where `nClusters` number
@@ -203,6 +229,11 @@ class Game {
 	 * @param      {number}  [nClusters=15]  The number of clusters
 	 */
 	setRandomState(nClusters = 15) {
+
+		// erase all cells.
+		this.reset();
+
+		// randomly turn some cells on.
 		for (let i = 0; i < nClusters; i++) {
 			const row = floor(Math.random() * this.nRows);
 			const col = floor(Math.random() * this.nColumns);
