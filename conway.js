@@ -1,3 +1,4 @@
+// abbreviate "Math.floor" to "floor":
 const floor = Math.floor;
 
 /**
@@ -14,13 +15,13 @@ class Game {
 	 * @param      {number}  width       The game's width
 	 * @param      {number}  height      The game's height
 	 */
-	constructor(context, width, height) {
+	constructor(context, width = 0, height = 0) {
 
 		// initialize graphic constants:
 		this.ctx = context;
 		this.width = width;
 		this.height = height;
-		this.cellSize = 0.2 * (width ** 0.55);
+		this.cellSize = 0.2 * (width ** 0.55) || 1;
 		this.nRows = floor(height / this.cellSize);
 		this.nColumns = this.nRows + floor((width - height) / this.cellSize);
 		this.xCenteringOffset = (width - this.nColumns * this.cellSize) / 2;
@@ -28,9 +29,9 @@ class Game {
 		this.cellPadding = 0.01 * this.cellSize;
 		this.animation = null;
 
+		// make sure all cells are set to zero:
 		this.reset();
 	}
-
 
 	/**
 	 * Resets the state of the game to all dead cells.
@@ -50,7 +51,7 @@ class Game {
 	 */
 	draw() {
 
-		// erase everything:
+		// erase everything on the canvas:
 		this.ctx.fillStyle = rgb(30, 30, 30);
 		this.ctx.fillRect(0, 0, this.width, this.height);
 
@@ -223,7 +224,7 @@ class Game {
 	}
 
 	/**
-	 * Reset the state of the game to a random state where `nClusters` number
+	 * Resets the state of the game to a random state where `nClusters` number
 	 * of clusters (neighboring cells) will be randomly set to 1 or 0.
 	 *
 	 * @param      {number}  [nClusters=15]  The number of clusters
@@ -292,3 +293,5 @@ function smoothRectangle(ctx, x, y, w, h, radius = 3) {
 	ctx.lineTo(x, y + radius);
 	ctx.quadraticCurveTo(x, y, x + radius, y);
 }
+
+module.exports = Game;
