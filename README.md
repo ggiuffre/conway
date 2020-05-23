@@ -6,6 +6,13 @@ with a simple HTML canvas.
 
 
 
+## Preview
+
+Check out a demo at
+[https://ggiuffre.github.io/conway/](https://ggiuffre.github.io/conway/).
+
+
+
 ## Usage
 
 Download <a href="https://raw.githubusercontent.com/ggiuffre/conway/master/conway.js" download>`conway.js`</a>
