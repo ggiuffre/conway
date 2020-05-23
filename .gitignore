@@ -4,3 +4,7 @@
 
 # Node.js modules
 node_modules/
+
+# Test coverage
+coverage/
+clover.xml

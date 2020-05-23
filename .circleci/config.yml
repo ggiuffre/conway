@@ -3,14 +3,23 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   build-and-test:
+    environment:
+      CC_TEST_REPORTER_ID: 017248ce7a41a32423131cbca9f00f52666daf1b68e225de8d8a2fa37d93fbdb
     executor:
       name: node/default
     steps:
       - checkout
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
       - node/with-cache:
           steps:
             - run: npm install jest
+            - run: ./cc-test-reporter before-build
             - run: npm test
+            - run: ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
 workflows:
     build-and-test:
       jobs:
