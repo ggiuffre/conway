@@ -264,18 +264,19 @@ function rgb(red, green, blue) {
 /**
  * Draws the path of a rectangle with smooth vertices, specified by the
  * position of its left edge (x), the position of its upper edge (y), its
- * widt (w), its height (h), and an optional value for the border radius.
- * Note that you are responsible for filling or stroking the path after having
- * called `smoothRectangle`.
+ * widt (w), and its height (h). Note that you are responsible for filling
+ * or stroking the path after having called `smoothRectangle`.
  *
  * @param      {object}  ctx         The JS canvas context
  * @param      {number}  x           The position of the left edge
  * @param      {number}  y           The position of the upper edge
  * @param      {number}  w           The width
  * @param      {number}  h           The height
- * @param      {number}  [radius=3]  The border radius
  */
-function smoothRectangle(ctx, x, y, w, h, radius = 3) {
+function smoothRectangle(ctx, x, y, w, h) {
+
+	// set the border radius:
+	const radius = 3;
 
 	// calculate the right and bottom edges:
 	const r = x + w;

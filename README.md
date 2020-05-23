@@ -1,4 +1,4 @@
-# Conway's Game of Life
+# Conway's Game of Life [![Maintainability](https://api.codeclimate.com/v1/badges/24df6590869950d2dea1/maintainability)](https://codeclimate.com/github/ggiuffre/conway/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/24df6590869950d2dea1/test_coverage)](https://codeclimate.com/github/ggiuffre/conway/test_coverage)
 
 A JavaScript implementation of Conway's
 [Game of Life](https://www.conwaylife.com/wiki/Conway%27s_Game_of_Life)
