@@ -84,7 +84,7 @@ class Game {
 		this.ctx.fillStyle = rgb(0, 200 * color, 140 * color);
 
 		// draw the cell:
-		smoothRectangle(this.ctx, x, y, cellInnerSize, cellInnerSize);
+		smoothSquare(this.ctx, x, y, cellInnerSize);
 		this.ctx.fill();
 	}
 
@@ -262,25 +262,24 @@ function rgb(red, green, blue) {
 }
 
 /**
- * Draws the path of a rectangle with smooth vertices, specified by the
- * position of its left edge (x), the position of its upper edge (y), its
- * widt (w), and its height (h). Note that you are responsible for filling
- * or stroking the path after having called `smoothRectangle`.
+ * Draws the path of a square with smooth vertices, specified by the
+ * position of its left edge (x), the position of its upper edge (y), and
+ * its side (side). Note that you are responsible for filling or stroking
+ * the path after having called `smoothSquare`.
  *
  * @param      {object}  ctx         The JS canvas context
  * @param      {number}  x           The position of the left edge
  * @param      {number}  y           The position of the upper edge
- * @param      {number}  w           The width
- * @param      {number}  h           The height
+ * @param      {number}  side        The square's side
  */
-function smoothRectangle(ctx, x, y, w, h) {
+function smoothSquare(ctx, x, y, side) {
 
 	// set the border radius:
 	const radius = 3;
 
 	// calculate the right and bottom edges:
-	const r = x + w;
- 	const b = y + h;
+	const r = x + side;
+ 	const b = y + side;
 
  	// draw a line path:
 	ctx.beginPath();
