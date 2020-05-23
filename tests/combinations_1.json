@@ -1,0 +1,10 @@
+[
+	[{"row": 0, "col": 0, "where": "north-west"}],
+	[{"row": 0, "col": 1, "where": "north"}],
+	[{"row": 0, "col": 2, "where": "north-east"}],
+	[{"row": 1, "col": 0, "where": "east"}],
+	[{"row": 1, "col": 2, "where": "west"}],
+	[{"row": 2, "col": 0, "where": "south-west"}],
+	[{"row": 2, "col": 1, "where": "south"}],
+	[{"row": 2, "col": 2, "where": "south-east"}]
+]
