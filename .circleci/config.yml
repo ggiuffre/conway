@@ -16,7 +16,7 @@ jobs:
             chmod +x ./cc-test-reporter
       - node/with-cache:
           steps:
-            - run: npm install jest
+            - run: npm install
             - run: ./cc-test-reporter before-build
             - run: npm test
             - run: ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
