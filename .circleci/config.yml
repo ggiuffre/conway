@@ -9,6 +9,7 @@ jobs:
       - image: 'cimg/base:stable'
     steps:
       - checkout
+      - node/install
       - run:
           name: Setup Code Climate test-reporter
           command: |
