@@ -1,12 +1,12 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node@4.4.0
 jobs:
   build-and-test:
     environment:
       CC_TEST_REPORTER_ID: 017248ce7a41a32423131cbca9f00f52666daf1b68e225de8d8a2fa37d93fbdb
-    executor:
-      name: node/default
+    docker:
+      - image: 'cimg/base:stable'
     steps:
       - checkout
       - run:
